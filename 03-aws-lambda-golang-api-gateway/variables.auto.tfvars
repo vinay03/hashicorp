@@ -1,0 +1,5 @@
+account_id              = "030907810968"
+region                  = "ap-south-1"
+lambda_assume_role_name = "iam_for_lambda_golang_poc_2"
+lambda_name             = "lambda_golang_poc_2"
+api_gateway_api_name    = "Lambda API 1"
