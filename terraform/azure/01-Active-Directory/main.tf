@@ -1,27 +1,33 @@
-# Retrieve domain information
+resource "azuread_group" "groups" {
+	for_each = toset(var.groups)
+	display_name = "${var.environment}-${each.value}"
+	security_enabled = false
+}
+
+resource "azuread_user" "db_users" {
+	for_each = toset(var.db_users)
+	user_principal_name = "${each.value}@${local.domain}"
+	display_name = "${var.environment}-${each.value}"
+	force_password_change = true
+}
+
+resource "azuread_group_member" "db_users_membership" {
+	group_object_id = azuread_group.groups["db_users"].object_id
+	for_each = azuread_user.db_users
+	member_object_id = each.value.object_id
+}
+
+# To fetch Domain name
+data "azuread_domains" "aad_domains" {
+	only_initial = true
+}
+
+locals  {
+	domain = data.azuread_domains.aad_domains.domains[0].domain_name
+}
+
+# Fetch Authenticating User
 data "azuread_client_config" "current" {}
-
-resource "azuread_application" "web_api" {
-  display_name = "terraform-admin"
-  owners       = [data.azuread_client_config.current.object_id]
+output "current" {
+	value = data.azuread_client_config.current
 }
-
-resource "azuread_service_principal" "web_api" {
-  application_id               = azuread_application.web_api.application_id
-  app_role_assignment_required = false
-  owners                       = [
-		data.azuread_client_config.current.object_id,
-		data.azuread_user.owner.object_id
-	]
-}
-
-data "azuread_user" "owner" {
-	user_principal_name = "vjeurkar03_hotmail.com#EXT#@vjeurkar03hotmail.onmicrosoft.com"
-}
-
-# # Create a user
-# resource "azuread_user" "example" {
-#   user_principal_name = "ExampleUser@${data.azuread_domains.example.domains.0.domain_name}"
-#   display_name        = "Example User"
-#   password            = "..."
-# }

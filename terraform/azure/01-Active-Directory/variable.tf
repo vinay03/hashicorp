@@ -1,4 +1,22 @@
 variable "tenant_id" {
-	default = "c3efd478-feca-47f6-9d05-71e90fba8191"
-	type = string
+	default = "9556b588-ec0a-4ab0-bb65-ce6d3b244b59"
+}
+
+variable "environment" {
+	default = "dev"
+}
+
+variable "groups" {
+	type = list(string)
+	default = [ "db_users", "lambda_users" ]
+}
+
+variable "db_users" {
+	type = list(string)
+	default = [ "db_auth_user", "db_log_user" ]
+}
+
+variable "lambda_users" {
+	type = list(string)
+	default = [ "lambda_net_user", "lambda_api_user" ]
 }
