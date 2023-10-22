@@ -1,7 +1,7 @@
 resource "azuread_group" "groups" {
 	for_each = toset(var.groups)
 	display_name = "${var.environment}-${each.value}"
-	security_enabled = false
+	security_enabled = true
 }
 
 resource "azuread_user" "db_users" {
@@ -9,6 +9,7 @@ resource "azuread_user" "db_users" {
 	user_principal_name = "${each.value}@${local.domain}"
 	display_name = "${var.environment}-${each.value}"
 	force_password_change = true
+	password = "test@123"
 }
 
 resource "azuread_group_member" "db_users_membership" {

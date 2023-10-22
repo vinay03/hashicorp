@@ -1,7 +1,3 @@
-variable "tenant_id" {
-	default = "9556b588-ec0a-4ab0-bb65-ce6d3b244b59"
-}
-
 variable "environment" {
 	default = "dev"
 }
