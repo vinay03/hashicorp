@@ -8,4 +8,5 @@
 
 ### Static Website 
 	Resources: Resource Group, Storage Account, and Blob Storage
+	Using a single `index.html` file, upload and publish a static website using Azure blob storage.
 [View More](./02-Static-website/)
