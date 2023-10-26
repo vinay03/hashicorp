@@ -20,7 +20,7 @@ db_username = "sqladmin"
 db_password = "p@ssw0rd"
 
 appsubnet_name = "app-subnet"
-appsubnet_cidr = "10.0.2.0/24"
+appsubnet_cidr = "10.0.3.0/24"
 app_vm_size = "Standard_B1s"
 app_hostname = "appserver"
 app_username = "appuser"
