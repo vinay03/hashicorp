@@ -2,6 +2,7 @@ resource "azurerm_availability_set" "web-availability-set" {
 	name = "web_availability_set"
 	resource_group_name = azurerm_resource_group.rg.name
 	location = azurerm_resource_group.rg.location
+	platform_fault_domain_count = 2
 }
 
 resource "azurerm_network_interface" "web-net-interface" {
@@ -52,6 +53,7 @@ resource "azurerm_availability_set" "app-availability-set" {
 	name = "app-availability-set"
 	resource_group_name = azurerm_resource_group.rg.name
 	location = azurerm_resource_group.rg.location
+	platform_fault_domain_count = 2
 }
 
 resource "azurerm_network_interface" "app-network-interface" {
